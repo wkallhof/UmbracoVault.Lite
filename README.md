@@ -3,8 +3,11 @@
 A lightweight, stripped down version of the orignal [Umbraco Vault](https://github.com/thenerdery/UmbracoVault) project with a few minor usability modifications. Removes assumptions around certain naming conventions and view engines.
 
 ### Notable Changes
-1. Removing the `AutoMap = true`. It now always assumes AutoMap
-
+1. Removed the `AutoMap = true`. It now always assumes AutoMap
+2. Removed `VaultRenderMvcController` and all associated code used to support auto-mapping entities with views and view models
+3. Removed `ITransformation` and all associated code used to support Transformations
+4. Removed `UmbracoMember` support
+5. Removed `Proxy` and `Lazy Loading` mixin support handlers & methods
 
 ### Supported Default Type Handlers
 
