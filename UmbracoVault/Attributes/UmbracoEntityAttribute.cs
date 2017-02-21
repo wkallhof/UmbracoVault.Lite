@@ -23,12 +23,6 @@ namespace UmbracoVault.Attributes
 			Alias = alias;
 		}
 
-        /// <summary>
-        /// When false (default), you must manually opt in all properties to be mapped with the [UmbracoProperty] attribute.
-        /// When true, you can omit the [UmbracoProperty] attribute and all properties will be mapped that are not decorated with [UmbracoIgnoreProperty].
-        /// </summary>
-        public bool AutoMap { get; set; }
-
 		/// <summary>
 		/// The Umbraco Doc Type alias, if it is different from the name of the entity
 		/// </summary>

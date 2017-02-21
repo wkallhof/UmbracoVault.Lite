@@ -66,7 +66,6 @@
     <Compile Include="Attributes\TrimStringPropertyAttribute.cs" />
     <Compile Include="DefaultInstanceFactoryTests.cs" />
     <Compile Include="Handlers\TrimStringTypeHandler.cs" />
-    <Compile Include="ProxyInstanceInterfaceFactoryTests.cs" />
     <Compile Include="DefaultInstanceInterfaceFactoryTests.cs" />
     <Compile Include="Models\AutoRegisteredTypeHandler.cs" />
     <Compile Include="Models\ExampleRecursiveAttributesViewModel.cs" />
@@ -75,7 +74,6 @@
     <Compile Include="Models\ExampleEnum.cs" />
     <Compile Include="Models\ExampleModelAllTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProxyInstanceFactoryTests.cs" />
     <Compile Include="UmbracoContextTests.cs" />
     <Compile Include="TypeHandlerFactoryTests.cs" />
   </ItemGroup>

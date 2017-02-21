@@ -29,18 +29,7 @@ namespace UmbracoVault.Tests
             Assert.IsNotNull(properties.FirstOrDefault(p => p.Name == "ButtonText"));
         }
 
-        [TestMethod]
-        public void GetPropertiesToFill_ShouldReturnCorrectProperties_WithoutAutomap()
-        {
-            var properties = _factory.GetPropertiesToFill<NoAutoMapDocumentModel>();
-            Assert.AreEqual(4, properties.Count);
-            Assert.IsNotNull(properties.FirstOrDefault(p => p.Name == "Introduction"));
-            Assert.IsNotNull(properties.FirstOrDefault(p => p.Name == "Body"));
-            Assert.IsNotNull(properties.FirstOrDefault(p => p.Name == "ImageUrl"));
-            Assert.IsNotNull(properties.FirstOrDefault(p => p.Name == "ButtonText"));
-        }
-
-        [UmbracoEntity(AutoMap = true)]
+        [UmbracoEntity()]
         // ReSharper disable once ClassNeverInstantiated.Local - OK Here, used by framework.
         private class DocumentModel
         {
@@ -56,32 +45,13 @@ namespace UmbracoVault.Tests
             public string Ignore { get; set; }
         }
 
-        [UmbracoEntity(AutoMap = false)]
-        // ReSharper disable once ClassNeverInstantiated.Local - Implemented by framework
-        private class NoAutoMapDocumentModel
-        {
-            [UmbracoProperty]
-            public string Introduction { get; set; }
-
-            [UmbracoProperty]
-            public string Body { get; set; }
-
-            [UmbracoProperty]
-            public string ImageUrl { get; set; }
-
-            [UmbracoProperty]
-            public virtual string ButtonText { get; set; }
-
-            public string Ignore { get; set; }
-        }
-
 
         /////////////////////////////////////////////////////////////////////////////////////////
         // Inheritence Tests
         /////////////////////////////////////////////////////////////////////////////////////////
 
         //Inner Class Automap
-        [UmbracoEntity(AutoMap = true)]
+        [UmbracoEntity()]
         public class InnerClassWithAutoMapExtendsBaseClassWithAutoMap : BaseClassWithAutoMap
         {
             public string Introduction { get; set; }
@@ -112,7 +82,7 @@ namespace UmbracoVault.Tests
             Assert.IsNotNull(properties.FirstOrDefault(p => p.Name == "ButtonText"));
         }
 
-        [UmbracoEntity(AutoMap = true)]
+        [UmbracoEntity()]
         public class InnerClassWithAutomapExtendsBaseClass : BaseClass
         {
             public string Introduction { get; set; }
@@ -145,7 +115,7 @@ namespace UmbracoVault.Tests
             Assert.IsNotNull(properties.FirstOrDefault(p => p.Name == "ButtonText"));
         }
 
-        [UmbracoEntity(AutoMap = true)]
+        [UmbracoEntity()]
         public class InnerClassWithAutoMapExtendsBaseClassNoAttribute : BaseClassNoAttribute
         {
             public string Introduction { get; set; }
@@ -373,7 +343,7 @@ namespace UmbracoVault.Tests
 
         //Base Classes
 
-        [UmbracoEntity(AutoMap = true)]
+        [UmbracoEntity()]
         public class BaseClassWithAutoMap
         {
             public string BaseProperty { get; set; }

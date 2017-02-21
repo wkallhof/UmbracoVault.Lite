@@ -31,7 +31,7 @@ namespace UmbracoVault.Tests
             Assert.IsNotNull(properties.FirstOrDefault(p => p.Name == "ButtonText"));
         }
 
-        [UmbracoEntity(AutoMap = true)]
+        [UmbracoEntity()]
         // ReSharper disable once ClassNeverInstantiated.Local - OK Here, used by framework.
         private class DocumentModel : IDocumentModel
         {
@@ -73,7 +73,7 @@ namespace UmbracoVault.Tests
             Assert.IsNotNull(properties.FirstOrDefault(p => p.Name == "UmbracoVault.Tests.DefaultInstanceInterfaceFactoryTests.IDocumentModel.ButtonText"));
         }
 
-        [UmbracoEntity(AutoMap = true)]
+        [UmbracoEntity()]
         // ReSharper disable once ClassNeverInstantiated.Local - OK Here, used by framework.
         private class ExplicitInterfaceDocumentModel : IDocumentModel
         {

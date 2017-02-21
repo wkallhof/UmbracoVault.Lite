@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UmbracoVault.Extensions;
 
 namespace UmbracoVault.Collections
 {
@@ -11,29 +12,14 @@ namespace UmbracoVault.Collections
     {
         public VaultItemCollection(string commaDelimitedIds)
         {
-            var idValues = commaDelimitedIds;
-            if (string.IsNullOrWhiteSpace(idValues))
-            {
-                return;
-            }
+            if (!commaDelimitedIds.IsSet()) return;
 
-            var ids = idValues.Split(',');
-            var loadAsMedia = Vault.Context.IsMediaRequest<T>();
+            var ids = commaDelimitedIds.Split(',');
 
-            if (loadAsMedia)
-            {
-                foreach (var item in ids.Select(id => Vault.Context.GetMediaById<T>(id)).Where(item => item != null))
-                {
-                    Add(item);
-                }
-            }
+            if (Vault.Context.IsMediaRequest<T>())
+                ids.Select(id => Vault.Context.GetMediaById<T>(id)).Where(item => item != null).ToList().ForEach(x => Add(x));
             else
-            {
-                foreach (var item in ids.Select(id => Vault.Context.GetContentById<T>(id)).Where(item => item != null))
-                {
-                    Add(item);
-                }
-            }
+                ids.Select(id => Vault.Context.GetContentById<T>(id)).Where(item => item != null).ToList().ForEach(x => Add(x));
         }
     }
 }

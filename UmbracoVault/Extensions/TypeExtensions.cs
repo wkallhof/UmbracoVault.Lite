@@ -74,7 +74,7 @@ namespace UmbracoVault.Extensions
         {
             IList<PropertyInfo> properties;
             var optionAttribute = type.GetUmbracoEntityAttributes().FirstOrDefault();
-            if (optionAttribute != null && optionAttribute.AutoMap)
+            if (optionAttribute != null)
             {
                 properties = GetAllPropertiesExceptOptedOut(type);
             }

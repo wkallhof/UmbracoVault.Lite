@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Web;
 
 using Umbraco.Core;
@@ -11,7 +10,6 @@ using Umbraco.Core.Models;
 using Umbraco.Web;
 
 using UmbracoVault.Extensions;
-using UmbracoVault.Transformations;
 
 namespace UmbracoVault
 {
@@ -20,32 +18,7 @@ namespace UmbracoVault
     /// </summary>
     public class UmbracoWebContext : BaseUmbracoContext
     {
-        //TODO: fetch classes from configuration and populate this list based on type and assembly strings
-        //TODO: Document Default Transformations
-        //TODO: Re-add transformations once there's a way to opt-in to them instead of having it be global
-        // ReSharper disable once CollectionNeverUpdated.Local
-        // ReSharper disable once RedundantEmptyObjectOrCollectionInitializer
-        private readonly IList<ITransformation> _transformations = new List<ITransformation>
-        {
-            //new SuperScriptTransformation()
-        };
-
         protected UmbracoHelper Helper => GetUmbracoHelperForRequest();
-
-        private IPublishedContent GetCurrentUmbracoContent()
-        {
-            if (UmbracoContext.Current.PublishedContentRequest.HasPublishedContent)
-            {
-                return UmbracoContext.Current.PublishedContentRequest.PublishedContent;
-            }
-            return null;
-        }
-
-        private IPublishedContent GetUmbracoContent(int id)
-        {
-            var umbracoItem = Helper.TypedContent(id);
-            return umbracoItem;
-        }
 
         /// <summary>
         ///     Retrieves a data item for the current node.
@@ -191,6 +164,21 @@ namespace UmbracoVault
             }
 
             return results.ToList().AsReadOnly();
+        }
+
+        private IPublishedContent GetCurrentUmbracoContent()
+        {
+            if (UmbracoContext.Current.PublishedContentRequest.HasPublishedContent)
+            {
+                return UmbracoContext.Current.PublishedContentRequest.PublishedContent;
+            }
+            return null;
+        }
+
+        private IPublishedContent GetUmbracoContent(int id)
+        {
+            var umbracoItem = Helper.TypedContent(id);
+            return umbracoItem;
         }
     }
 }

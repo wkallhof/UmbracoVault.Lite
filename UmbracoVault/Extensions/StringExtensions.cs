@@ -10,6 +10,14 @@ namespace UmbracoVault.Extensions
 {
     public static class StringExtensions
     {
+        /// <summary>
+        /// Shorthand check to determine if a 
+        /// string contains a non whitespace value
+        /// </summary>
+        public static bool IsSet(this string s)
+        {
+            return !string.IsNullOrWhiteSpace(s);
+        }
 		/// <summary>
 		/// Given a string value, will convert it into an enum value
 		/// </summary>
@@ -20,6 +28,7 @@ namespace UmbracoVault.Extensions
 			Contract.Requires(Enum.IsDefined(typeof(T), value));
 			return (T)Enum.Parse(typeof(T), value);
 		}
+
 		/// <summary>
 		/// Given rich text content, will render the internal links
 		/// </summary>

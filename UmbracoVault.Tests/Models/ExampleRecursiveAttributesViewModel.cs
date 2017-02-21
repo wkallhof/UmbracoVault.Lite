@@ -2,12 +2,12 @@
 
 namespace UmbracoVault.Tests.Models
 {
-    [UmbracoEntity(AutoMap = true)]
+    [UmbracoEntity()]
     public class ExampleRecursiveAttributesViewModel : BaseRecursiveAttributesViewModel
     {
     }
 
-    [UmbracoEntity(AutoMap = true)]
+    [UmbracoEntity()]
     public class BaseRecursiveAttributesViewModel
     {
     }
