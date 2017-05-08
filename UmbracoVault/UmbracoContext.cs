@@ -65,6 +65,19 @@ namespace UmbracoVault
             return GetItem<T>(umbracoItem);
         }
 
+        public override T GetMediaById<T>(int id)
+        {
+            var umbracoItem = GetUmbracoMedia(id);
+
+            if (umbracoItem == null || umbracoItem.Id <= 0)
+            {
+                LogHelper.Error<T>($"Could not locate umbraco media item with Id of '{id}'.", null);
+                return default(T);
+            }
+
+            return GetItem<T>(umbracoItem);
+        }
+
         public override IEnumerable<T> GetContentByCsv<T>(string csv)
         {
             return Helper.GetTypedContentByCsv(csv).Select(GetItem<T>);
@@ -78,6 +91,20 @@ namespace UmbracoVault
             foreach (var alias in GetUmbracoEntityAliasesFromType(type))
             {
                 var contents = Helper.GetContentByAlias(alias);
+                items.AddRange(contents.Select(GetItem<T>));
+            }
+
+            return items;
+        }
+
+        public override IEnumerable<T> GetByMediaType<T>()
+        {
+            var items = new List<T>();
+            var type = typeof(T);
+
+            foreach (var alias in GetUmbracoEntityAliasesFromType(type))
+            {
+                var contents = this.Helper.GetMediaByAlias(alias);
                 items.AddRange(contents.Select(GetItem<T>));
             }
 
@@ -139,6 +166,20 @@ namespace UmbracoVault
             return result;
         }
 
+        protected T GetMediaItem<T>(IMedia m)
+        {
+            var result = typeof(T).CreateWithNoParams<T>();
+
+            FillClassProperties(result, (alias, recursive) =>
+            {
+                // recursive is ignored in this case
+                var value = m.GetValue(alias);
+                return value;
+            });
+
+            return result;
+        }
+
         private static UmbracoHelper GetUmbracoHelperForRequest()
         {
             const string umbracoHelperKey = "__vaultUmbracoHelper";
@@ -179,6 +220,12 @@ namespace UmbracoVault
         {
             var umbracoItem = Helper.TypedContent(id);
             return umbracoItem;
+        }
+
+        private IPublishedContent GetUmbracoMedia(int id)
+        {
+            var mediaItem = Helper.TypedMedia(id);
+            return mediaItem;
         }
     }
 }

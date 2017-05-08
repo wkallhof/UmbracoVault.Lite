@@ -27,21 +27,25 @@ namespace UmbracoVault.TypeHandlers
 
     	public object GetAsType<T>(object input)
 	    {
-	        var mediaObject = Get(input?.ToString());
-	        if (mediaObject == null)
-	        {
-	            return null;
-	        }
+            //var mediaObject = Get(input?.ToString());
+            //if (mediaObject == null)
+            //{
+            //    return null;
+            //}
 
-            var result = typeof(T).CreateWithNoParams<T>();
-            if (result == null)
-            {
-                throw new ConstructorUnavailableException(typeof(T));
-            }
+            //   var result = typeof(T).CreateWithNoParams<T>();
+            //   if (result == null)
+            //   {
+            //       throw new ConstructorUnavailableException(typeof(T));
+            //   }
 
-            Vault.Context.FillClassProperties(result, (alias, recursive) => mediaObject.GetPropertyValue(alias,recursive));
+            //   Vault.Context.FillClassProperties(result, (alias, recursive) => mediaObject.GetPropertyValue(alias,recursive));
 
-            return result;
+            //   return result;
+
+            var content = Vault.Context.GetMediaById<T>(input.ToString());
+
+            return content;
         }
 
         public Type TypeSupported => typeof (Media);

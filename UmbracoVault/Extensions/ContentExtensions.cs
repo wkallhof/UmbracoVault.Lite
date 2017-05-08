@@ -22,6 +22,17 @@ namespace UmbracoVault.Extensions
         }
 
         /// <summary>
+        /// Finds content based on media alias. 
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <param name="alias"></param>
+        /// <returns></returns>
+        public static IEnumerable<IPublishedContent> GetMediaByAlias(this UmbracoHelper helper, string alias)
+        {
+            return helper.TypedMediaAtRoot().DescendantsOrSelf(alias);
+        }
+
+        /// <summary>
         /// Gets the home content item for the given Umbraco context.
         /// </summary>
         /// <param name="helper"></param>

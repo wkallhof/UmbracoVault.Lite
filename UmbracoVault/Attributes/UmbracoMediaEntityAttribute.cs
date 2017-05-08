@@ -13,16 +13,17 @@ namespace UmbracoVault.Attributes
     [AttributeUsage(AttributeTargets.Class)]
     public class UmbracoMediaEntityAttribute : UmbracoEntityAttribute
     {
-        public override Type TypeHandlerOverride
-        {
-            get
-            {
-                return typeof(MediaTypeHandler); 
-            }
-            set
-            {
-                throw new NotSupportedException("Cannot override type for UmbracoMedia type handler");
-            }
-        }
+        public override Type TypeHandlerOverride { get; set; } = typeof(MediaTypeHandler);
+        //public override Type TypeHandlerOverride
+        //{
+        //    get
+        //    {
+        //        return typeof(MediaTypeHandler); 
+        //    }
+        //    set
+        //    {
+        //        throw new NotSupportedException("Cannot override type for UmbracoMedia type handler");
+        //    }
+        //}
     }
 }

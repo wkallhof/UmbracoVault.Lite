@@ -46,18 +46,7 @@ namespace UmbracoVault
             return GetContentById<T>(id);
         }
 
-        public T GetMediaById<T>(int id)
-        {
-            var umbracoItem = GetUmbracoMedia(id);
-
-            if (umbracoItem == null || umbracoItem.Id <= 0)
-            {
-                LogHelper.Error<T>($"Could not locate umbraco media item with Id of '{id}'.", null);
-                return default(T);
-            }
-
-            return GetMediaItem<T>(umbracoItem);
-        }
+        public abstract T GetMediaById<T>(int id);
 
         public T GetMediaById<T>(string idString)
         {
@@ -68,6 +57,8 @@ namespace UmbracoVault
         public abstract IEnumerable<T> GetContentByCsv<T>(string csv);
 
         public abstract IEnumerable<T> GetByDocumentType<T>();
+
+        public abstract IEnumerable<T> GetByMediaType<T>();
 
         public abstract IEnumerable<string> GetUrlsForDocumentType<T>();
 
@@ -197,31 +188,10 @@ namespace UmbracoVault
             return result;
         }
 
-        protected static IMedia GetUmbracoMedia(int id)
-        {
-            var mediaItem = ApplicationContext.Current.Services.MediaService.GetById(id);
-            return mediaItem;
-        }
-
         protected static IMember GetUmbracoMember(int id)
         {
             var member = ApplicationContext.Current.Services.MemberService.GetById(id);
             return member;
-        }
-
-        // ReSharper disable once SuggestBaseTypeForParameter - OK Here
-        protected T GetMediaItem<T>(IMedia m)
-        {
-            var result = typeof(T).CreateWithNoParams<T>();
-
-            FillClassProperties(result, (alias, recursive) =>
-            {
-                // recursive is ignored in this case
-                var value = m.GetValue(alias);
-                return value;
-            });
-
-            return result;
         }
 
         protected T GetMemberItem<T>(IMember m)

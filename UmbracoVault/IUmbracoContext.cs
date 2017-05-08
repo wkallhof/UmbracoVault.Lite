@@ -83,6 +83,15 @@ namespace UmbracoVault
 		IEnumerable<T> GetByDocumentType<T>();
 
         /// <summary>
+        /// Creates and returns an IEnumerable of {T} as mapped to Umbraco items. 
+        /// The Umbraco media types to load are read from the [UmbracoMediaEntity] "Alias" parameter(s) defined on {T}.
+        /// All published items of the specified media type(s) are returned.
+        /// </summary>
+        /// <typeparam name="T">The core type to hydrate and return, and the type that informs which Umbraco aliases to map</typeparam>
+        /// <returns>An IEnumerable of {T} as mapped to Umbraco items</returns>
+		IEnumerable<T> GetByMediaType<T>();
+
+        /// <summary>
         /// Returns a list of URLs, given a type
         /// </summary>
         /// <typeparam name="T"></typeparam>
